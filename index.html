@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title></title>
+</head>
+<body>
+	<div class="score">
+		score:
+	</div>		
+	<div class="main">
+		<div class="hole"></div>
+		<div class="hole"></div>
+		<div class="hole"></div>
+		<div class="hole"></div>
+		<div class="hole"></div>
+		<div class="hole"></div>
+	</div>
+<script type="text/javascript">
+	var score = 0
+	var scoreShow = document.querySelector('.score')
+	var main = document.querySelector('.main')
+	var holes = document.querySelectorAll('.hole')
+	var img = document.createElement('img')
+	document.body.appendChild(img)
+	img.classList.add('krot')
+	var lastRand = 0
+	setInterval(show, 1000);
+	function show(){
+		var rand = Math.floor(Math.random() * holes.length)
+		if(rand != lastRand) {
+			img.src = 'mole.svg'
+			img.style.top = holes[rand].getBoundingClientRect().top - 150 + 'px';
+			img.style.left = holes[rand].getBoundingClientRect().left + 'px';
+		}
+		lastRand=rand
+	}
+
+		img.onclick = function(){
+			if(score < 3){
+				score++
+				scoreShow.innerHTML = 'score: ' + score
+				img.style.display = 'none'
+				show()
+				img.style.display = 'inline'
+			}else{
+				scoreShow.style.display= 'none'
+				main.style.display = 'none'
+				img.style.display = 'none'
+				var div = document.createElement('div')
+				document.body.appendChild(div)
+				div.classList.add('win')
+				div.innerHTML = 'You win'
+
+			}
+		}
+</script>
+</body>
+</html>
